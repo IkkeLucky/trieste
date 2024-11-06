@@ -1,4 +1,4 @@
-import PatientForm from "@/components/forms/PatientForm";
+import ClientiForm from "@/components/forms/ClientiForm";
 import PasskeyModal from "@/components/PasskeyModal";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -19,11 +19,11 @@ export default function Home({searchParams}: SearchParamProps) {
             src="/assets/images/barbarablogo.jpg"
             height={1000}
             width={1000}
-            alt="patient"
+            alt="clienti"
             className="mb-12 h-[70px] w-fit"
           />
 
-          <PatientForm />
+          <ClientiForm />
 
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
@@ -38,7 +38,7 @@ export default function Home({searchParams}: SearchParamProps) {
         src="/assets/images/barbarab.jpg"
         height={1000}
         width={1000}
-        alt="patient"
+        alt="clienti"
         className="side-img max-w-[50%]"
       />
     </div>

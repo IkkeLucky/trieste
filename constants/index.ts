@@ -1,6 +1,6 @@
 export const GenderOptions = ["maschile", "femminile", "altri"];
 
-export const PatientFormDefaultValues = {
+export const ClientiFormDefaultValues = {
   firstName: "",
   lastName: "",
   email: "",
@@ -44,7 +44,7 @@ export const IdentificationTypes = [
   "Altro",
 ];
 
-export const Doctors = [
+export const servizii = [
   {
     image: "/assets/images/circolotrans.png",
     name: "servizio1",

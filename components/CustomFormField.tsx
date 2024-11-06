@@ -11,7 +11,7 @@ import {
 import { E164Number } from "libphonenumber-js/core";
 import { Input } from "@/components/ui/input"
 import { Control } from "react-hook-form"
-import { FormFieldType } from "./forms/PatientForm"
+import { FormFieldType } from "./forms/ClientiForm"
 import Image from "next/image"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'

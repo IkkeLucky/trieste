@@ -1,5 +1,5 @@
 import RegisterForm from '@/components/forms/RegisterForm';
-import { getUser } from '@/lib/actions/patient.actions';
+import { getUser } from '@/lib/actions/clienti.actions';
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
@@ -20,7 +20,7 @@ const Register = async ({params: {userId}}: SearchParamProps) => {
             src="/assets/images/barbarablogo.jpg"
             height={1000}
             width={1000}
-            alt="patient"
+            alt="clienti"
             className="mb-12 h-10 w-fit"
           />
       
@@ -37,7 +37,7 @@ const Register = async ({params: {userId}}: SearchParamProps) => {
         src="/assets/images/register-img.png"
         height={1000}
         width={1000}
-        alt="patient"
+        alt="clienti"
         className="side-img max-w-[390px]"
       />
     </div>

@@ -1,14 +1,14 @@
-import  AppointmentForm  from "@/components/forms/AppointmentForm";
-import { getPatient } from "@/lib/actions/patient.actions";
+import  AppuntamentiForm  from "@/components/forms/AppuntamentiForm";
+import { getclienti } from "@/lib/actions/clienti.actions";
 import Image from "next/image";
 import * as Sentry from '@sentry/nextjs'
 import Link from "next/link";
 
-export default async function NewAppointment({params: {userId}}: SearchParamProps) {
+export default async function Newappuntamenti({params: {userId}}: SearchParamProps) {
 
-  const patient = await getPatient(userId);
+  const clienti = await getclienti(userId);
 
-  Sentry.metrics.set("user_view_new-appointment", patient.name);
+  Sentry.metrics.set("user_view_new-appuntamenti", clienti.name);
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -19,15 +19,15 @@ export default async function NewAppointment({params: {userId}}: SearchParamProp
             src="/assets/images/barbarablogo.jpg"
             height={1000}
             width={1000}
-            alt="patient"
+            alt="clienti"
             className="mb-12 h-10 w-fit"
           />
         </Link>
 
-          <AppointmentForm 
+          <AppuntamentiForm 
             type="create"
             userId={userId}
-            patientId={patient.$id}
+            clientiId={clienti.$id}
           />
 
             <p className="copyright mt-10 py-12">
@@ -38,10 +38,10 @@ export default async function NewAppointment({params: {userId}}: SearchParamProp
       </section>
 
       <Image 
-        src="/assets/images/appointment-img.png"
+        src="/assets/images/appuntamenti-img.png"
         height={1000}
         width={1000}
-        alt="appointment"
+        alt="appuntamenti"
         className="side-img max-w-[390px] bg-bottom"
       />
     </div>

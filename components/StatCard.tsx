@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 
 interface StatCardProps {
-    type: 'appointments' | 'pending' | 'cancelled'
+    type: 'appuntamentii' | 'pending' | 'cancelled'
     count: number
     label: string
     icon: string
@@ -12,7 +12,7 @@ interface StatCardProps {
 const StatCard = ({count = 0, label, icon, type}: StatCardProps) => {
   return (
     <div className={clsx('stat-card', {
-        'bg-appointments': type === 'appointments',
+        'bg-appuntamentii': type === 'appuntamentii',
         'bg-pending': type === 'pending',
         'bg-cancelled': type === 'cancelled'
     })}>

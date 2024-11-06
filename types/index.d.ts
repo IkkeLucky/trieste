@@ -48,9 +48,9 @@ declare type SearchParamProps = {
     funerale: string | undefined;
   }
   
-  declare type CreateAppointmentParams = {
+  declare type CreateappuntamentiParams = {
     userId: string;
-    patient: string;
+    clienti: string;
     primaryPhysician: string;
     reason: string;
     schedule: Date;
@@ -58,9 +58,9 @@ declare type SearchParamProps = {
     note: string | undefined;
   };
   
-  declare type UpdateAppointmentParams = {
-    appointmentId: string;
+  declare type UpdateappuntamentiParams = {
+    appuntamentiId: string;
     userId: string;
-    appointment: Appointment;
+    appuntamenti: appuntamenti;
     type: string;
   };

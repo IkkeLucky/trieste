@@ -6,47 +6,47 @@ import { z } from "zod"
 import { Form } from "@/components/ui/form"
 import CustomFormField from "../CustomFormField"
 import SubmitButton from "../SubmitButton"
-import { getAppointmentSchema } from "@/lib/validation"
+import { getappuntamentiichema } from "@/lib/validation"
 import { useRouter } from "next/navigation"
-import { createUser } from "@/lib/actions/patient.actions"
+import { createUser } from "@/lib/actions/clienti.actions"
 import { Dispatch, SetStateAction, useState } from "react";
-import { FormFieldType } from "./PatientForm"
-import { Doctors } from "@/constants"
+import { FormFieldType } from "./ClientiForm"
+import { servizii } from "@/constants"
 import { SelectItem } from "../ui/select"
 import Image from "next/image"
-import { createAppointment, updateAppointment } from "@/lib/actions/appointment.actions"
-import { Appointment } from "@/types/appwrite.types"
+import { createappuntamenti, updateappuntamenti } from "@/lib/actions/appuntamenti.actions"
+import { appuntamenti } from "@/types/appwrite.types"
 
 
  
-const AppointmentForm = ({ userId, patientId, type, appointment, setOpen}: 
+const AppuntamentiForm = ({ userId, clientiId, type, appuntamenti, setOpen}: 
   {userId: string; 
-    patientId: string; 
+    clientiId: string; 
     type: "create" | "cancel" | "schedule";
-    appointment?: Appointment;
+    appuntamenti?: appuntamenti;
     setOpen?: Dispatch<SetStateAction<boolean>>;
   }) => {
   // 1. Define your form.
 
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const AppointmentFormValidation = getAppointmentSchema(type);
+  const AppuntamentiFormValidation = getappuntamentiichema(type);
 
-  const form = useForm<z.infer<typeof AppointmentFormValidation>>({
-    resolver: zodResolver(AppointmentFormValidation),
+  const form = useForm<z.infer<typeof AppuntamentiFormValidation>>({
+    resolver: zodResolver(AppuntamentiFormValidation),
     defaultValues: {
-      primaryPhysician: appointment ? appointment?.primaryPhysician : "",
-      schedule: appointment
-        ? new Date(appointment?.schedule!)
+      primaryPhysician: appuntamenti ? appuntamenti?.primaryPhysician : "",
+      schedule: appuntamenti
+        ? new Date(appuntamenti?.schedule!)
         : new Date(Date.now()),
-      reason: appointment ? appointment.reason : "",
-      note: appointment?.note || "",
-      cancellationReason: appointment?.cancellationReason || "",
+      reason: appuntamenti ? appuntamenti.reason : "",
+      note: appuntamenti?.note || "",
+      cancellationReason: appuntamenti?.cancellationReason || "",
     },
   })
  
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof AppointmentFormValidation>) {
+  async function onSubmit(values: z.infer<typeof AppuntamentiFormValidation>) {
     setIsLoading(true)
 
     let status;
@@ -63,10 +63,10 @@ const AppointmentForm = ({ userId, patientId, type, appointment, setOpen}:
 
     try {
       
-        if(type === 'create' && patientId) {
-            const appointmentData = {
+        if(type === 'create' && clientiId) {
+            const appuntamentiData = {
                 userId,
-                patient: patientId,
+                clienti: clientiId,
                 primaryPhysician: values.primaryPhysician,
                 schedule: new Date(values.schedule),
                 reason: values.reason!,
@@ -74,17 +74,17 @@ const AppointmentForm = ({ userId, patientId, type, appointment, setOpen}:
                 status: status as Status,
             }
 
-            const appointment = await createAppointment(appointmentData)
+            const appuntamenti = await createappuntamenti(appuntamentiData)
 
-            if(appointment) {
+            if(appuntamenti) {
                 form.reset();
-                router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`);
+                router.push(`/clientii/${userId}/new-appuntamenti/success?appuntamentiId=${appuntamenti.$id}`);
             }
         } else {
-          const appointmentToUpdate = {
+          const appuntamentiToUpdate = {
             userId,
-            appointmentId: appointment?.$id!,
-            appointment: {
+            appuntamentiId: appuntamenti?.$id!,
+            appuntamenti: {
               primaryPhysician: values?.primaryPhysician,
               schedule: new Date(values?.schedule),
               status: status as Status,
@@ -93,9 +93,9 @@ const AppointmentForm = ({ userId, patientId, type, appointment, setOpen}:
             type
           }
 
-          const updatedAppointment = await updateAppointment(appointmentToUpdate)
+          const updatedappuntamenti = await updateappuntamenti(appuntamentiToUpdate)
 
-          if(updatedAppointment) {
+          if(updatedappuntamenti) {
             setOpen && setOpen(false);
             form.reset()
           }
@@ -111,10 +111,10 @@ const AppointmentForm = ({ userId, patientId, type, appointment, setOpen}:
   let buttonLabel;
   switch (type) {
     case "cancel":
-      buttonLabel = "Cancel Appointment";
+      buttonLabel = "Cancel appuntamenti";
       break;
     case "schedule":
-      buttonLabel = "Schedule Appointment";
+      buttonLabel = "Schedule appuntamenti";
       break;
     default:
       buttonLabel = "Submit Apppointment";
@@ -137,17 +137,17 @@ const AppointmentForm = ({ userId, patientId, type, appointment, setOpen}:
                     label="Servizio desiderato"
                     placeholder="Seleziona un servizio"
                     >
-                        {Doctors.map((doctor) => (
-                        <SelectItem key={doctor.name} value={doctor.name}>
+                        {servizii.map((servizi) => (
+                        <SelectItem key={servizi.name} value={servizi.name}>
                             <div className="flex cursor-pointer items-center gap-2">
                             <Image 
-                                src={doctor.image}
+                                src={servizi.image}
                                 width={32}
                                 height={32}
-                                alt={doctor.name}
+                                alt={servizi.name}
                                 className="rounded-full border border-dark-500"
                             />
-                            <p>{doctor.name}</p>
+                            <p>{servizi.name}</p>
                             </div>
                         </SelectItem>
                         ))}
@@ -199,4 +199,4 @@ const AppointmentForm = ({ userId, patientId, type, appointment, setOpen}:
   )
 }
 
-export default AppointmentForm
+export default AppuntamentiForm

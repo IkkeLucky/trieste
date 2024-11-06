@@ -2,14 +2,14 @@
 import StatCard from '@/components/StatCard'
 import {columns} from '@/components/table/columns'
 import {DataTable} from '@/components/table/DataTable'
-import { getRecentAppointmentsList } from '@/lib/actions/appointment.actions'
+import { getRecentappuntamentiiList } from '@/lib/actions/appuntamenti.actions'
 import Image from 'next/image'
 import Link from 'next/link'
 
 
 const Admin = async () => {
 
-  const appointments = await getRecentAppointmentsList()
+  const appuntamentii = await getRecentappuntamentiiList()
 
   return (
     <div className='mx-auto flex max-w-7xl flex-col space-y-14'>
@@ -35,26 +35,26 @@ const Admin = async () => {
 
         <section className='admin-stat'>
             <StatCard 
-                type="appointments"
-                count={appointments.scheduledCount}
-                label="Scheduled appointment"
-                icon="/assets/icons/appointments.svg"
+                type="appuntamentii"
+                count={appuntamentii.scheduledCount}
+                label="Scheduled appuntamenti"
+                icon="/assets/icons/appuntamentii.svg"
             />
             <StatCard 
                 type="pending"
-                count={appointments.pendingCount}
-                label="Pending appointment"
+                count={appuntamentii.pendingCount}
+                label="Pending appuntamenti"
                 icon="/assets/icons/pending.svg"
             />
             <StatCard 
                 type="cancelled"
-                count={appointments.cancelledCount}
-                label="Cancelled appointment"
+                count={appuntamentii.cancelledCount}
+                label="Cancelled appuntamenti"
                 icon="/assets/icons/cancelled.svg"
             />
         </section>
 
-        <DataTable columns={columns} data={appointments.documents} />
+        <DataTable columns={columns} data={appuntamentii.documents} />
       </main>
     </div>
   )

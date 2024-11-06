@@ -7,12 +7,12 @@ import { Form, FormControl } from "@/components/ui/form"
 import CustomFormField from "../CustomFormField"
 import SubmitButton from "../SubmitButton"
 import { useState } from "react"
-import { PatientFormValidation, UserFormValidation } from "@/lib/validation"
+import { ClientiFormValidation, UserFormValidation } from "@/lib/validation"
 import { useRouter } from "next/navigation"
-import { createUser, registerPatient } from "@/lib/actions/patient.actions"
-import { FormFieldType } from "./PatientForm"
+import { createUser, registerclienti } from "@/lib/actions/clienti.actions"
+import { FormFieldType } from "./ClientiForm"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
-import { Doctors, GenderOptions, IdentificationTypes, PatientFormDefaultValues } from "@/constants"
+import { servizii, GenderOptions, IdentificationTypes, ClientiFormDefaultValues } from "@/constants"
 import { Label } from "../ui/label"
 import { SelectItem } from "@/components/ui/select";
 import Image from "next/image"
@@ -25,10 +25,10 @@ const RegisterForm = ({user}: {user: User}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false)
 
-  const form = useForm<z.infer<typeof PatientFormValidation>>({
-    resolver: zodResolver(PatientFormValidation),
+  const form = useForm<z.infer<typeof ClientiFormValidation>>({
+    resolver: zodResolver(ClientiFormValidation),
     defaultValues: {
-      ...PatientFormDefaultValues,
+      ...ClientiFormDefaultValues,
       name: "",
       email: "",
       phone: "",
@@ -36,7 +36,7 @@ const RegisterForm = ({user}: {user: User}) => {
   })
  
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof PatientFormValidation>) {
+  async function onSubmit(values: z.infer<typeof ClientiFormValidation>) {
     setIsLoading(true);
 
     let formData;
@@ -52,7 +52,7 @@ const RegisterForm = ({user}: {user: User}) => {
     }
 
     try {
-      const patientData = {
+      const clientiData = {
         ...values,
         userId: user.$id,
         birthDate: new Date(values.birthDate),
@@ -60,9 +60,9 @@ const RegisterForm = ({user}: {user: User}) => {
       }
 
       // @ts-ignore
-      const patient = await registerPatient(patientData);
+      const clienti = await registerclienti(clientiData);
 
-      if(patient) router.push(`/patients/${user.$id}/new-appointment`)
+      if(clienti) router.push(`/clientii/${user.$id}/new-appuntamenti`)
 
     } catch (error) {
       console.log(error);
@@ -192,17 +192,17 @@ const RegisterForm = ({user}: {user: User}) => {
                   label="Servizio desiderato"
                   placeholder="Seleziona un servizio"
               >
-                {Doctors.map((doctor) => (
-                  <SelectItem key={doctor.name} value={doctor.name}>
+                {servizii.map((servizi) => (
+                  <SelectItem key={servizi.name} value={servizi.name}>
                     <div className="flex cursor-pointer items-center gap-2">
                       <Image 
-                        src={doctor.image}
+                        src={servizi.image}
                         width={32}
                         height={32}
-                        alt={doctor.name}
+                        alt={servizi.name}
                         className="rounded-full border border-dark-500"
                       />
-                      <p>{doctor.name}</p>
+                      <p>{servizi.name}</p>
                     </div>
                   </SelectItem>
                 ))}
