@@ -3,14 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
-import { servizii } from "@/constants";
+import { doctors } from "@/constants";
 import { formatDateTime } from "@/lib/utils";
-import { appuntamenti } from "@/types/appwrite.types";
+import { appointment } from "@/types/appwrite.types";
 
 import { StatusBadge } from "../StatusBadge";
-import { appuntamentiModal } from "../appuntamentiModal";
+import { appointmentModal } from "../appointmentModal";
 
-export const columns: ColumnDef<appuntamenti>[] = [
+export const columns: ColumnDef<appointment>[] = [
   {
     header: "#",
     cell: ({ row }) => {
@@ -18,21 +18,21 @@ export const columns: ColumnDef<appuntamenti>[] = [
     },
   },
   {
-    accessorKey: "clienti",
-    header: "Clienti",
+    accessorKey: "patient",
+    header: "patient",
     cell: ({ row }) => {
-      const appuntamenti = row.original;
-      return <p className="text-14-medium ">{appuntamenti.clienti.name}</p>;
+      const appointment = row.original;
+      return <p className="text-14-medium ">{appointment.patient.name}</p>;
     },
   },
   {
     accessorKey: "status",
     header: "Stato",
     cell: ({ row }) => {
-      const appuntamenti = row.original;
+      const appointment = row.original;
       return (
         <div className="min-w-[115px]">
-          <StatusBadge status={appuntamenti.status} />
+          <StatusBadge status={appointment.status} />
         </div>
       );
     },
@@ -41,34 +41,34 @@ export const columns: ColumnDef<appuntamenti>[] = [
     accessorKey: "schedule",
     header: "Appuntamento",
     cell: ({ row }) => {
-      const appuntamenti = row.original;
+      const appointment = row.original;
       return (
         <p className="text-14-regular min-w-[100px]">
-          {formatDateTime(appuntamenti.schedule).dateTime}
+          {formatDateTime(appointment.schedule).dateTime}
         </p>
       );
     },
   },
   {
     accessorKey: "primaryPhysician",
-    header: "Servizio",
+    header: "doctoro",
     cell: ({ row }) => {
-      const appuntamenti = row.original;
+      const appointment = row.original;
 
-      const servizi = servizii.find(
-        (servizi) => servizi.name === appuntamenti.primaryPhysician
+      const doctor = doctors.find(
+        (doctor) => doctor.name === appointment.primaryPhysician
       );
 
       return (
         <div className="flex items-center gap-3">
           <Image
-            src={servizi?.image!}
-            alt="servizi"
+            src={doctor?.image!}
+            alt="doctor"
             width={100}
             height={100}
             className="size-8"
           />
-          <p className="whitespace-nowrap">. {servizi?.name}</p>
+          <p className="whitespace-nowrap">. {doctor?.name}</p>
         </div>
       );
     },
@@ -77,25 +77,25 @@ export const columns: ColumnDef<appuntamenti>[] = [
     id: "actions",
     header: () => <div className="pl-4">Actions</div>,
     cell: ({ row }) => {
-      const appuntamenti = row.original;
+      const appointment = row.original;
 
       return (
         <div className="flex gap-1">
-          <appuntamentiModal
-            clientiId={appuntamenti.clienti.$id}
-            userId={appuntamenti.userId}
-            appuntamenti={appuntamenti}
+          <appointmentModal
+            patientsd={appointment.patient.$id}
+            userId={appointment.userId}
+            appointment={appointment}
             type="schedule"
-            title="Schedule appuntamenti"
+            title="Schedule appointment"
             description="Please confirm the following details to schedule."
           />
-          <appuntamentiModal
-            clientiId={appuntamenti.clienti.$id}
-            userId={appuntamenti.userId}
-            appuntamenti={appuntamenti}
+          <appointmentModal
+            patientsd={appointment.patient.$id}
+            userId={appointment.userId}
+            appointment={appointment}
             type="cancel"
-            title="Cancel appuntamenti"
-            description="Are you sure you want to cancel your appuntamenti?"
+            title="Cancel appointment"
+            description="Are you sure you want to cancel your appointment?"
           />
         </div>
       );

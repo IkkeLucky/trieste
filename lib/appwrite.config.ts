@@ -5,9 +5,9 @@ export const {
   PROJECT_ID,
   API_KEY,
   DATABASE_ID,
-  clienti_COLLECTION_ID,
-  servizi_COLLECTION_ID,
-  appuntamenti_COLLECTION_ID,
+  patient_COLLECTION_ID,
+  doctor_COLLECTION_ID,
+  appointment_COLLECTION_ID,
   NEXT_PUBLIC_BUCKET_ID: BUCKET_ID,
 } = process.env;
 

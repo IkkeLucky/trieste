@@ -1,7 +1,7 @@
 "use server";
 
 import { ID, Query } from "node-appwrite";
-import { BUCKET_ID, DATABASE_ID, databases, ENDPOINT, clienti_COLLECTION_ID, PROJECT_ID, storage, users } from "../appwrite.config";
+import { BUCKET_ID, DATABASE_ID, databases, ENDPOINT, patient_COLLECTION_ID, PROJECT_ID, storage, users } from "../appwrite.config";
 import { parseStringify } from "../utils";
 import { InputFile } from "node-appwrite/file"
 
@@ -45,17 +45,17 @@ export const getUser = async (userId: string) => {
   }
 };
 
-export const getclienti = async (userId: string) => {
+export const getpatient = async (userId: string) => {
   try {
-    const clientii = await databases.listDocuments(
+    const patients = await databases.listDocuments(
       DATABASE_ID!,
-      clienti_COLLECTION_ID!,
+      patient_COLLECTION_ID!,
       [
         Query.equal('userId', userId)
       ]
     );
 
-    return parseStringify(clientii.documents[0]);
+    return parseStringify(patients.documents[0]);
   } catch (error) {
     console.error(
       "An error occurred while retrieving the user details:",
@@ -64,7 +64,7 @@ export const getclienti = async (userId: string) => {
   }
 };
 
-export const registerclienti = async ({identificationDocument, ...clienti}: RegisterUserParams) => {
+export const registerpatient = async ({identificationDocument, ...patient}: RegisterUserParams) => {
   try {
     
     let file;
@@ -78,19 +78,19 @@ export const registerclienti = async ({identificationDocument, ...clienti}: Regi
       file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile)
     }
 
-    const newclienti = await databases.createDocument(
+    const newpatient = await databases.createDocument(
       DATABASE_ID!,
-      clienti_COLLECTION_ID!,
+      patient_COLLECTION_ID!,
       ID.unique(),
       {
         identificationDocumentId: file?.$id || null,
         identificationDocumentUrl: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view?project=${PROJECT_ID}`,
-        ...clienti
+        ...patient
       }
     )
 
-    return parseStringify(newclienti);
+    return parseStringify(newpatient);
   } catch (error) {
-    console.error("An error occurred while creating a new clienti:", error);
+    console.error("An error occurred while creating a new patient:", error);
   }
 }

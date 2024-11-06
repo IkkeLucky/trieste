@@ -11,21 +11,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { appuntamenti } from "@/types/appwrite.types";
+import { appointment } from "@/types/appwrite.types";
 
 
 import "react-datepicker/dist/react-datepicker.css";
-import AppuntamentiForm from "./forms/AppuntamentiForm";
+import AppointmentForm from "./forms/AppointmentForm";
 
-export const appuntamentiModal = ({
-  clientiId,
+export const appointmentModal = ({
+  patientsd,
   userId,
-  appuntamenti,
+  appointment,
   type,
 }: {
-  clientiId: string;
+  patientsd: string;
   userId: string;
-  appuntamenti?: appuntamenti;
+  appointment?: appointment;
   type: "schedule" | "cancel";
   title: string;
   description: string;
@@ -44,17 +44,17 @@ export const appuntamentiModal = ({
       </DialogTrigger>
       <DialogContent className="shad-dialog sm:max-w-md">
         <DialogHeader className="mb-4 space-y-3">
-          <DialogTitle className="capitalize">{type} appuntamenti</DialogTitle>
+          <DialogTitle className="capitalize">{type} appointment</DialogTitle>
           <DialogDescription>
-            Please fill in the following details to {type} appuntamenti
+            Please fill in the following details to {type} appointment
           </DialogDescription>
         </DialogHeader>
 
-        <AppuntamentiForm
+        <AppointmentForm
           userId={userId}
-          clientiId={clientiId}
+          patientsd={patientsd}
           type={type}
-          appuntamenti={appuntamenti}
+          appointment={appointment}
           setOpen={setOpen}
         />
       </DialogContent>

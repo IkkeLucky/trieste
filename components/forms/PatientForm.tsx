@@ -9,7 +9,7 @@ import SubmitButton from "../SubmitButton"
 import { useState } from "react"
 import { UserFormValidation } from "@/lib/validation"
 import { useRouter } from "next/navigation"
-import { createUser } from "@/lib/actions/clienti.actions"
+import { createUser } from "@/lib/actions/patient.actions"
  
 export enum FormFieldType {
   INPUT = 'input',
@@ -23,7 +23,7 @@ export enum FormFieldType {
 
 
  
-const ClientiForm = () => {
+const PatientForm = () => {
   // 1. Define your form.
 
   const router = useRouter();
@@ -46,7 +46,7 @@ const ClientiForm = () => {
       const userData = { name, email, phone };
       const user = await createUser(userData);
 
-      if(user) router.push(`/clientii/${user.$id}/register`)
+      if(user) router.push(`/patients/${user.$id}/register`)
 
     } catch (error) {
       console.log(error);
@@ -97,4 +97,4 @@ const ClientiForm = () => {
   )
 }
 
-export default ClientiForm
+export default PatientForm

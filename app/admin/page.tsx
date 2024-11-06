@@ -2,14 +2,14 @@
 import StatCard from '@/components/StatCard'
 import {columns} from '@/components/table/columns'
 import {DataTable} from '@/components/table/DataTable'
-import { getRecentappuntamentiiList } from '@/lib/actions/appuntamenti.actions'
+import { getRecentappointmentsList } from '@/lib/actions/appointment.actions' 
 import Image from 'next/image'
 import Link from 'next/link'
 
 
 const Admin = async () => {
 
-  const appuntamentii = await getRecentappuntamentiiList()
+  const appointments = await getRecentappointmentsList()
 
   return (
     <div className='mx-auto flex max-w-7xl flex-col space-y-14'>
@@ -30,31 +30,31 @@ const Admin = async () => {
       <main className='admin-main'>
         <section className='w-full space-y-4'>
             <h1 className='header'>Benvenuto -FACOLTATIVO-</h1>
-            <p className='text-dark-700'>Sistematizza nuovi appuntamenti -FACOLTATIVO-</p>
+            <p className='text-dark-700'>Sistematizza nuovi appointment -FACOLTATIVO-</p>
         </section>
 
         <section className='admin-stat'>
             <StatCard 
-                type="appuntamentii"
-                count={appuntamentii.scheduledCount}
-                label="Scheduled appuntamenti"
-                icon="/assets/icons/appuntamentii.svg"
+                type="appointments"
+                count={appointments.scheduledCount}
+                label="Scheduled appointment"
+                icon="/assets/icons/appointments.svg"
             />
             <StatCard 
                 type="pending"
-                count={appuntamentii.pendingCount}
-                label="Pending appuntamenti"
+                count={appointments.pendingCount}
+                label="Pending appointment"
                 icon="/assets/icons/pending.svg"
             />
             <StatCard 
                 type="cancelled"
-                count={appuntamentii.cancelledCount}
-                label="Cancelled appuntamenti"
+                count={appointments.cancelledCount}
+                label="Cancelled appointment"
                 icon="/assets/icons/cancelled.svg"
             />
         </section>
 
-        <DataTable columns={columns} data={appuntamentii.documents} />
+        <DataTable columns={columns} data={appointments.documents} />
       </main>
     </div>
   )

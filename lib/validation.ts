@@ -11,7 +11,7 @@ export const UserFormValidation = z.object({
     .refine((phone) => /^\+\d{10,15}$/.test(phone), "Invalid phone number"),
 });
 
-export const ClientiFormValidation = z.object({
+export const PatientFormValidation = z.object({
   name: z
     .string()
     .min(2, "Name must be at least 2 characters")
@@ -28,7 +28,7 @@ export const ClientiFormValidation = z.object({
   // occupation: z.string().optional(),
   // emergencyContactName: z.string().optional(),
   // emergencyContactNumber: z.string().optional(),
-  primaryPhysician: z.string().min(2, "Select at least one servizi"),
+  primaryPhysician: z.string().min(2, "Select at least one doctor"),
   // insuranceProvider: z.string().optional(),
   // insurancePolicyNumber: z.string().optional(),
   // allergies: z.string().optional(),
@@ -66,8 +66,8 @@ export const ClientiFormValidation = z.object({
     funerale: z.string().optional(),
 });
 
-export const Createappuntamentiichema = z.object({
-  primaryPhysician: z.string().min(2, "Select at least one servizi"),
+export const Createappointmentschema = z.object({
+  primaryPhysician: z.string().min(2, "Select at least one doctor"),
   schedule: z.coerce.date(),
   reason: z
     .string()
@@ -77,16 +77,16 @@ export const Createappuntamentiichema = z.object({
   cancellationReason: z.string().optional(),
 });
 
-export const Scheduleappuntamentiichema = z.object({
-  primaryPhysician: z.string().min(2, "Select at least one servizi"),
+export const Scheduleappointmentschema = z.object({
+  primaryPhysician: z.string().min(2, "Select at least one doctor"),
   schedule: z.coerce.date(),
   reason: z.string().optional(),
   note: z.string().optional(),
   cancellationReason: z.string().optional(),
 });
 
-export const Cancelappuntamentiichema = z.object({
-  primaryPhysician: z.string().min(2, "Select at least one servizi"),
+export const Cancelappointmentschema = z.object({
+  primaryPhysician: z.string().min(2, "Select at least one doctor"),
   schedule: z.coerce.date(),
   reason: z.string().optional(),
   note: z.string().optional(),
@@ -96,13 +96,13 @@ export const Cancelappuntamentiichema = z.object({
     .max(500, "Reason must be at most 500 characters"),
 });
 
-export function getappuntamentiichema(type: string) {
+export function getappointmentschema(type: string) {
   switch (type) {
     case "create":
-      return Createappuntamentiichema;
+      return Createappointmentschema;
     case "cancel":
-      return Cancelappuntamentiichema;
+      return Cancelappointmentschema;
     default:
-      return Scheduleappuntamentiichema;
+      return Scheduleappointmentschema;
   }
 }
